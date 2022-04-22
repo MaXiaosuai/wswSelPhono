@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-wswSelPhono" version="1.0.0"
+    xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>wswSelPhono</name>
+    <js-module name="wswSelPhono" src="www/wswSelPhono.js">
+        <clobbers target="wswSelPhono" />
+    </js-module>
+    <platform name="ios">
+        <config-file parent="/*" target="config.xml">
+            <feature name="wswSelPhono">
+                <param name="ios-package" value="wswSelPhono" />
+            </feature>
+        </config-file>
+
+        <header-file src="src/ios/wswSelPhono.h" />
+        <source-file src="src/ios/wswSelPhono.m" />
+
+        <header-file src="src/ios/JFImagePickerController/JFAssetHelper.h" />
+        <source-file src="src/ios/JFImagePickerController/JFAssetHelper.m" />
+        <header-file src="src/ios/JFImagePickerController/JFImageCollectionViewController.h" />
+        <source-file src="src/ios/JFImagePickerController/JFImageCollectionViewController.m" />
+        <header-file src="src/ios/JFImagePickerController/JFImageGroupTableViewController.h" />
+        <source-file src="src/ios/JFImagePickerController/JFImageGroupTableViewController.m" />
+        <header-file src="src/ios/JFImagePickerController/JFImageManager.h" />
+        <source-file src="src/ios/JFImagePickerController/JFImageManager.m" />
+        <header-file src="src/ios/JFImagePickerController/JFImagePickerController.h" />
+        <source-file src="src/ios/JFImagePickerController/JFImagePickerController.m" />
+        <header-file src="src/ios/JFImagePickerController/JFImagePickerViewCell.h" />
+        <source-file src="src/ios/JFImagePickerController/JFImagePickerViewCell.m" />
+        <header-file src="src/ios/JFImagePickerController/JFPhotoBrowserViewController.h" />
+        <source-file src="src/ios/JFImagePickerController/JFPhotoBrowserViewController.m" />
+        <header-file src="src/ios/JFImagePickerController/JFPhotoView.h" />
+        <source-file src="src/ios/JFImagePickerController/JFPhotoView.m" />
+        <header-file src="src/ios/JFImagePickerController/UIViewController+SKPModel.h" />
+        <source-file src="src/ios/JFImagePickerController/UIViewController+SKPModel.m" />
+
+        <config-file target="*-Info.plist" parent="NSCameraUsageDescription">
+			<string>更换头像需要您的同意,请允许访问你的相机</string>
+        </config-file>
+        <config-file target="*-Info.plist" parent="NSPhotoLibraryAddUsageDescription">
+			<string>更换头像需要您的同意,请允许访问你的相册</string>
+        </config-file>
+        <config-file target="*-Info.plist" parent="NSCameraUsageDescription">
+			<string>更换头像需要您的同意,请允许访问你的相册</string>
+        </config-file>
+
+    </platform>
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="wswSelPhono">
+                <param name="android-package" value="cordova-plugin-wswSelPhono.wswSelPhono" />
+            </feature>
+        </config-file>
+        <config-file parent="/*" target="AndroidManifest.xml"></config-file>
+        <source-file src="src/android/wswSelPhono.java" target-dir="src/cordova-plugin-wswSelPhono/wswSelPhono" />
+    </platform>
+</plugin>
