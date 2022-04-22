@@ -16,24 +16,43 @@
         <header-file src="src/ios/wswSelPhono.h" />
         <source-file src="src/ios/wswSelPhono.m" />
 
-        <header-file src="src/ios/JFImagePickerController/JFAssetHelper.h" />
-        <source-file src="src/ios/JFImagePickerController/JFAssetHelper.m" />
-        <header-file src="src/ios/JFImagePickerController/JFImageCollectionViewController.h" />
-        <source-file src="src/ios/JFImagePickerController/JFImageCollectionViewController.m" />
-        <header-file src="src/ios/JFImagePickerController/JFImageGroupTableViewController.h" />
-        <source-file src="src/ios/JFImagePickerController/JFImageGroupTableViewController.m" />
-        <header-file src="src/ios/JFImagePickerController/JFImageManager.h" />
-        <source-file src="src/ios/JFImagePickerController/JFImageManager.m" />
-        <header-file src="src/ios/JFImagePickerController/JFImagePickerController.h" />
-        <source-file src="src/ios/JFImagePickerController/JFImagePickerController.m" />
-        <header-file src="src/ios/JFImagePickerController/JFImagePickerViewCell.h" />
-        <source-file src="src/ios/JFImagePickerController/JFImagePickerViewCell.m" />
-        <header-file src="src/ios/JFImagePickerController/JFPhotoBrowserViewController.h" />
-        <source-file src="src/ios/JFImagePickerController/JFPhotoBrowserViewController.m" />
-        <header-file src="src/ios/JFImagePickerController/JFPhotoView.h" />
-        <source-file src="src/ios/JFImagePickerController/JFPhotoView.m" />
-        <header-file src="src/ios/JFImagePickerController/UIViewController+SKPModel.h" />
-        <source-file src="src/ios/JFImagePickerController/UIViewController+SKPModel.m" />
+        <header-file src="src/ios/TZImagePickerController/NSBundle+TZImagePicker.h" />
+        <source-file src="src/ios/TZImagePickerController/NSBundle+TZImagePicker.m" />
+        <header-file src="src/ios/TZImagePickerController/TZAssetCell.h" />
+        <source-file src="src/ios/TZImagePickerController/TZAssetCell.m" />
+        <header-file src="src/ios/TZImagePickerController/TZAssetModel.h" />
+        <source-file src="src/ios/TZImagePickerController/TZAssetModel.m" />
+        <header-file src="src/ios/TZImagePickerController/TZGifPhotoPreviewController.h" />
+        <source-file src="src/ios/TZImagePickerController/TZGifPhotoPreviewController.m" />
+        <header-file src="src/ios/TZImagePickerController/TZImageCropManager.h" />
+        <source-file src="src/ios/TZImagePickerController/TZImageCropManager.m" />
+        <header-file src="src/ios/TZImagePickerController/TZImageManager.h" />
+        <source-file src="src/ios/TZImagePickerController/TZImageManager.m" />
+        <header-file src="src/ios/TZImagePickerController/TZImagePickerController.h" />
+        <source-file src="src/ios/TZImagePickerController/TZImagePickerController.m" />
+        <header-file src="src/ios/TZImagePickerController/TZImageRequestOperation.h" />
+        <source-file src="src/ios/TZImagePickerController/TZImageRequestOperation.m" />
+        <header-file src="src/ios/TZImagePickerController/TZLocationManager.h" />
+        <source-file src="src/ios/TZImagePickerController/TZLocationManager.m" />
+        <header-file src="src/ios/TZImagePickerController/TZPhotoPickerController.h" />
+        <source-file src="src/ios/TZImagePickerController/TZPhotoPickerController.m" />
+        <header-file src="src/ios/TZImagePickerController/TZPhotoPreviewCell.h" />
+        <source-file src="src/ios/TZImagePickerController/TZPhotoPreviewCell.m" />
+        <header-file src="src/ios/TZImagePickerController/TZPhotoPreviewController.h" />
+        <source-file src="src/ios/TZImagePickerController/TZPhotoPreviewController.m" />
+        <header-file src="src/ios/TZImagePickerController/TZProgressView.h" />
+        <source-file src="src/ios/TZImagePickerController/TZProgressView.m" />
+        <header-file src="src/ios/TZImagePickerController/TZVideoCropController.h" />
+        <source-file src="src/ios/TZImagePickerController/TZVideoCropController.m" />
+        <header-file src="src/ios/TZImagePickerController/TZVideoEditedPreviewController.h" />
+        <source-file src="src/ios/TZImagePickerController/TZVideoEditedPreviewController.m" />
+        <header-file src="src/ios/TZImagePickerController/TZVideoPlayerController.h" />
+        <source-file src="src/ios/TZImagePickerController/TZVideoPlayerController.m" />
+        <header-file src="src/ios/TZImagePickerController/UIView+TZLayout.h" />
+        <source-file src="src/ios/TZImagePickerController/UIView+TZLayout.m" />
+        <resource-file src="src/ios/TZImagePickerController/TZImagePickerController.bundle"/>
+
+
 
         <config-file target="*-Info.plist" parent="NSCameraUsageDescription">
 			<string>更换头像需要您的同意,请允许访问你的相机</string>
