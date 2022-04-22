@@ -16,6 +16,8 @@
         <header-file src="src/ios/wswSelPhono.h" />
         <source-file src="src/ios/wswSelPhono.m" />
 
+        <header-file src="src/ios/TZImagePickerController/UIViewController+SKPModel.h" />
+        <source-file src="src/ios/TZImagePickerController/UIViewController+SKPModel.m" />
         <header-file src="src/ios/TZImagePickerController/NSBundle+TZImagePicker.h" />
         <source-file src="src/ios/TZImagePickerController/NSBundle+TZImagePicker.m" />
         <header-file src="src/ios/TZImagePickerController/TZAssetCell.h" />

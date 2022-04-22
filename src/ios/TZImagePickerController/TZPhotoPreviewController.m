@@ -487,20 +487,20 @@
     TZAssetModel *model = _models[indexPath.item];
     
     TZAssetPreviewCell *cell;
-    __weak typeof(self) weakSelf = self;
+    
     if (_tzImagePickerVc.allowPickingMultipleVideo && model.type == TZAssetModelMediaTypeVideo) {
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TZVideoPreviewCell" forIndexPath:indexPath];
         TZVideoPreviewCell *currentCell = (TZVideoPreviewCell *)cell;
         currentCell.iCloudSyncFailedHandle = ^(id asset, BOOL isSyncFailed) {
             model.iCloudFailed = isSyncFailed;
-            [weakSelf didICloudSyncStatusChanged:model];
+            [self didICloudSyncStatusChanged:model];
         };
     } else if (_tzImagePickerVc.allowPickingMultipleVideo && model.type == TZAssetModelMediaTypePhotoGif && _tzImagePickerVc.allowPickingGif) {
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TZGifPreviewCell" forIndexPath:indexPath];
         TZGifPreviewCell *currentCell = (TZGifPreviewCell *)cell;
         currentCell.previewView.iCloudSyncFailedHandle = ^(id asset, BOOL isSyncFailed) {
             model.iCloudFailed = isSyncFailed;
-            [weakSelf didICloudSyncStatusChanged:model];
+            [self didICloudSyncStatusChanged:model];
         };
     } else {
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TZPhotoPreviewCell" forIndexPath:indexPath];
@@ -508,33 +508,33 @@
         photoPreviewCell.cropRect = _tzImagePickerVc.cropRect;
         photoPreviewCell.allowCrop = _tzImagePickerVc.allowCrop;
         photoPreviewCell.scaleAspectFillCrop = _tzImagePickerVc.scaleAspectFillCrop;
-        __weak typeof(_collectionView) weakCollectionView = _collectionView;
-        __weak typeof(photoPreviewCell) weakCell = photoPreviewCell;
+//        __weak typeof(_collectionView) weakCollectionView = _collectionView;
+//        __weak typeof(photoPreviewCell) weakCell = photoPreviewCell;
         [photoPreviewCell setImageProgressUpdateBlock:^(double progress) {
-            __strong typeof(weakSelf) strongSelf = weakSelf;
-            __strong typeof(weakCollectionView) strongCollectionView = weakCollectionView;
-            __strong typeof(weakCell) strongCell = weakCell;
-            strongSelf.progress = progress;
+//            //__strong typeof(weakSelf) self = weakSelf;
+//            __strong typeof(weakCollectionView) strongCollectionView = weakCollectionView;
+//            __strong typeof(weakCell) strongCell = weakCellself
+            self.progress = progress;
             if (progress >= 1) {
-                if (strongSelf.isSelectOriginalPhoto) [strongSelf showPhotoBytes];
-                if (strongSelf.alertView && [strongCollectionView.visibleCells containsObject:strongCell]) {
-                    [strongSelf.alertView dismissViewControllerAnimated:YES completion:^{
-                        strongSelf.alertView = nil;
-                        [strongSelf doneButtonClick];
+                if (self.isSelectOriginalPhoto) [self showPhotoBytes];
+                if (self.alertView && [_collectionView.visibleCells containsObject:photoPreviewCell]) {
+                    [self.alertView dismissViewControllerAnimated:YES completion:^{
+                        self.alertView = nil;
+                        [self doneButtonClick];
                     }];
                 }
             }
         }];
         photoPreviewCell.previewView.iCloudSyncFailedHandle = ^(id asset, BOOL isSyncFailed) {
             model.iCloudFailed = isSyncFailed;
-            [weakSelf didICloudSyncStatusChanged:model];
+            [self didICloudSyncStatusChanged:model];
         };
     }
     
     cell.model = model;
     [cell setSingleTapGestureBlock:^{
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        [strongSelf didTapPreviewCell];
+//        //__strong typeof(weakSelf) self = weakSelf;
+        [self didTapPreviewCell];
     }];
 
     return cell;
@@ -669,16 +669,16 @@
 /// 调用选中/取消选中某张照片的代理方法
 - (void)callDelegate:(PHAsset *)asset isSelect:(BOOL)isSelect {
     TZImagePickerController *tzImagePickerVc = (TZImagePickerController *)self.navigationController;
-    __weak typeof(self) weakSelf = self;
-    __weak typeof(tzImagePickerVc) weakImagePickerVc= tzImagePickerVc;
+    //__weak typeof(self) weakSelf = self;
+//    __weak typeof(tzImagePickerVc) weakImagePickerVc= tzImagePickerVc;
     [[TZImageManager manager] getPhotoWithAsset:asset completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
         if (isDegraded) return;
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        __strong typeof(weakImagePickerVc) strongImagePickerVc = weakImagePickerVc;
+        //__strong typeof(weakSelf) self = weakSelf;
+//        __strong typeof(weakImagePickerVc) strongImagePickerVc = weakImagePickerVc;
         if (isSelect) {
-            [strongImagePickerVc.pickerDelegate imagePickerController:strongImagePickerVc didSelectAsset:asset photo:photo isSelectOriginalPhoto:strongSelf.isSelectOriginalPhoto];
+            [tzImagePickerVc.pickerDelegate imagePickerController:tzImagePickerVc didSelectAsset:asset photo:photo isSelectOriginalPhoto:self.isSelectOriginalPhoto];
         } else {
-            [strongImagePickerVc.pickerDelegate imagePickerController:strongImagePickerVc didDeselectAsset:asset photo:photo isSelectOriginalPhoto:strongSelf.isSelectOriginalPhoto];
+            [tzImagePickerVc.pickerDelegate imagePickerController:tzImagePickerVc didDeselectAsset:asset photo:photo isSelectOriginalPhoto:self.isSelectOriginalPhoto];
         }
     }];
 }

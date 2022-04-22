@@ -244,13 +244,13 @@
     }
     self.videoImgArray = NSMutableArray.new;
     self.imageTimes = times;
-    typeof(self) weakSelf = self;
+//    typeof(self) weakSelf = self;
     [_imageGenerator generateCGImagesAsynchronouslyForTimes:times completionHandler:^(CMTime requestedTime, CGImageRef  _Nullable image, CMTime actualTime, AVAssetImageGeneratorResult result, NSError * _Nullable error) {
         if (image) {
             UIImage *img = [[UIImage alloc] initWithCGImage:image];
-            [weakSelf.videoImgArray addObject:img];
+            [self.videoImgArray addObject:img];
             dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf.collectionView reloadData];
+                [self.collectionView reloadData];
             });
         }
     }];

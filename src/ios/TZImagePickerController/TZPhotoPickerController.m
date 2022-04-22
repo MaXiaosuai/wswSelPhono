@@ -600,32 +600,32 @@ static CGFloat itemMargin = 5;
         cell.cannotSelectLayerButton.hidden = YES;
     }
     
-    __weak typeof(cell) weakCell = cell;
-    __weak typeof(self) weakSelf = self;
-    __weak typeof(_numberImageView.layer) weakLayer = _numberImageView.layer;
+//    __weak typeof(cell) weakCell = cell;
+//    //__weak typeof(self) weakSelf = self;
+//    __weak typeof(_numberImageView.layer) weakLayer = _numberImageView.layer;
     cell.didSelectPhotoBlock = ^(BOOL isSelected) {
-        __strong typeof(weakCell) strongCell = weakCell;
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        __strong typeof(weakLayer) strongLayer = weakLayer;
-        TZImagePickerController *tzImagePickerVc = (TZImagePickerController *)strongSelf.navigationController;
+//        __strong typeof(weakCell) strongCell = weakCell;
+//        //__strong typeof(weakSelf) self = weakSelf;
+//        __strong typeof(weakLayer) strongLayer = weakLayer;
+        TZImagePickerController *tzImagePickerVc = (TZImagePickerController *)self.navigationController;
         // 1. cancel select / 取消选择
         if (isSelected) {
-            strongCell.selectPhotoButton.selected = NO;
+            cell.selectPhotoButton.selected = NO;
             model.isSelected = NO;
             NSArray *selectedModels = [NSArray arrayWithArray:tzImagePickerVc.selectedModels];
             for (TZAssetModel *model_item in selectedModels) {
                 if ([model.asset.localIdentifier isEqualToString:model_item.asset.localIdentifier]) {
                     [tzImagePickerVc removeSelectedModel:model_item];
-                    [strongSelf setAsset:model_item.asset isSelect:NO];
+                    [self setAsset:model_item.asset isSelect:NO];
                     break;
                 }
             }
-            [strongSelf refreshBottomToolBarStatus];
+            [self refreshBottomToolBarStatus];
             if (tzImagePickerVc.showSelectedIndex || tzImagePickerVc.showPhotoCannotSelectLayer) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"TZ_PHOTO_PICKER_RELOAD_NOTIFICATION" object:strongSelf.navigationController];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"TZ_PHOTO_PICKER_RELOAD_NOTIFICATION" object:self.navigationController];
             }
-            [UIView showOscillatoryAnimationWithLayer:strongLayer type:TZOscillatoryAnimationToSmaller];
-            if (strongCell.model.iCloudFailed) {
+            [UIView showOscillatoryAnimationWithLayer: _numberImageView.layer type:TZOscillatoryAnimationToSmaller];
+            if (cell.model.iCloudFailed) {
                 NSString *title = [NSBundle tz_localizedStringForKey:@"iCloud sync failed"];
                 [tzImagePickerVc showAlertWithTitle:title];
             }
@@ -643,19 +643,19 @@ static CGFloat itemMargin = 5;
                     if (shouldDone) {
                         model.isSelected = YES;
                         [tzImagePickerVc addSelectedModel:model];
-                        [strongSelf doneButtonClick];
+                        [self doneButtonClick];
                         return;
                     }
                 }
-                strongCell.selectPhotoButton.selected = YES;
+                cell.selectPhotoButton.selected = YES;
                 model.isSelected = YES;
                 [tzImagePickerVc addSelectedModel:model];
                 if (tzImagePickerVc.showSelectedIndex || tzImagePickerVc.showPhotoCannotSelectLayer) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"TZ_PHOTO_PICKER_RELOAD_NOTIFICATION" object:strongSelf.navigationController];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"TZ_PHOTO_PICKER_RELOAD_NOTIFICATION" object:self.navigationController];
                 }
-                [strongSelf setAsset:model.asset isSelect:YES];
-                [strongSelf refreshBottomToolBarStatus];
-                [UIView showOscillatoryAnimationWithLayer:strongLayer type:TZOscillatoryAnimationToSmaller];
+                [self setAsset:model.asset isSelect:YES];
+                [self refreshBottomToolBarStatus];
+                [UIView showOscillatoryAnimationWithLayer:_numberImageView.layer  type:TZOscillatoryAnimationToSmaller];
             } else {
                 NSString *title = [NSString stringWithFormat:[NSBundle tz_localizedStringForKey:@"Select a maximum of %zd photos"], tzImagePickerVc.maxImagesCount];
                 [tzImagePickerVc showAlertWithTitle:title];
@@ -748,13 +748,13 @@ static CGFloat itemMargin = 5;
     // 提前定位
     TZImagePickerController *tzImagePickerVc = (TZImagePickerController *)self.navigationController;
     if (tzImagePickerVc.allowCameraLocation) {
-        __weak typeof(self) weakSelf = self;
+        //__weak typeof(self) weakSelf = self;
         [[TZLocationManager manager] startLocationWithSuccessBlock:^(NSArray<CLLocation *> *locations) {
-            __strong typeof(weakSelf) strongSelf = weakSelf;
-            strongSelf.location = [locations firstObject];
+            //__strong typeof(weakSelf) self = weakSelf;
+            self.location = [locations firstObject];
         } failureBlock:^(NSError *error) {
-            __strong typeof(weakSelf) strongSelf = weakSelf;
-            strongSelf.location = nil;
+            //__strong typeof(weakSelf) self = weakSelf;
+            self.location = nil;
         }];
     }
     
@@ -804,25 +804,25 @@ static CGFloat itemMargin = 5;
 }
 
 - (void)pushPhotoPrevireViewController:(TZPhotoPreviewController *)photoPreviewVc needCheckSelectedModels:(BOOL)needCheckSelectedModels {
-    __weak typeof(self) weakSelf = self;
+    //__weak typeof(self) weakSelf = self;
     photoPreviewVc.isSelectOriginalPhoto = _isSelectOriginalPhoto;
     [photoPreviewVc setBackButtonClickBlock:^(BOOL isSelectOriginalPhoto) {
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        strongSelf.isSelectOriginalPhoto = isSelectOriginalPhoto;
+        //__strong typeof(weakSelf) self = weakSelf;
+        self.isSelectOriginalPhoto = isSelectOriginalPhoto;
         if (needCheckSelectedModels) {
-            [strongSelf checkSelectedModels];
+            [self checkSelectedModels];
         }
-        [strongSelf.collectionView reloadData];
-        [strongSelf refreshBottomToolBarStatus];
+        [self.collectionView reloadData];
+        [self refreshBottomToolBarStatus];
     }];
     [photoPreviewVc setDoneButtonClickBlock:^(BOOL isSelectOriginalPhoto) {
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        strongSelf.isSelectOriginalPhoto = isSelectOriginalPhoto;
-        [strongSelf doneButtonClick];
+        //__strong typeof(weakSelf) self = weakSelf;
+        self.isSelectOriginalPhoto = isSelectOriginalPhoto;
+        [self doneButtonClick];
     }];
     [photoPreviewVc setDoneButtonClickBlockCropMode:^(UIImage *cropedImage, id asset) {
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        [strongSelf didGetAllPhotos:@[cropedImage] assets:@[asset] infoArr:nil];
+        //__strong typeof(weakSelf) self = weakSelf;
+        [self didGetAllPhotos:@[cropedImage] assets:@[asset] infoArr:nil];
     }];
     [self.navigationController pushViewController:photoPreviewVc animated:YES];
 }
@@ -887,16 +887,16 @@ static CGFloat itemMargin = 5;
 /// 调用选中/取消选中某张照片的代理方法
 - (void)callDelegate:(PHAsset *)asset isSelect:(BOOL)isSelect {
     TZImagePickerController *tzImagePickerVc = (TZImagePickerController *)self.navigationController;
-    __weak typeof(self) weakSelf = self;
-    __weak typeof(tzImagePickerVc) weakImagePickerVc= tzImagePickerVc;
+    //__weak typeof(self) weakSelf = self;
+//    __weak typeof(tzImagePickerVc) weakImagePickerVc= tzImagePickerVc;
     [[TZImageManager manager] getPhotoWithAsset:asset completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
         if (isDegraded) return;
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        __strong typeof(weakImagePickerVc) strongImagePickerVc = weakImagePickerVc;
+        //__strong typeof(weakSelf) self = weakSelf;
+//        __strong typeof(weakImagePickerVc) strongImagePickerVc = weakImagePickerVc;
         if (isSelect) {
-            [strongImagePickerVc.pickerDelegate imagePickerController:strongImagePickerVc didSelectAsset:asset photo:photo isSelectOriginalPhoto:strongSelf.isSelectOriginalPhoto];
+            [tzImagePickerVc.pickerDelegate imagePickerController:tzImagePickerVc didSelectAsset:asset photo:photo isSelectOriginalPhoto:self.isSelectOriginalPhoto];
         } else {
-            [strongImagePickerVc.pickerDelegate imagePickerController:strongImagePickerVc didDeselectAsset:asset photo:photo isSelectOriginalPhoto:strongSelf.isSelectOriginalPhoto];
+            [tzImagePickerVc.pickerDelegate imagePickerController:tzImagePickerVc didDeselectAsset:asset photo:photo isSelectOriginalPhoto:self.isSelectOriginalPhoto];
         }
     }];
 }

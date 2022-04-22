@@ -59,10 +59,10 @@
 - (void)configPreviewView {
     _previewView = [[TZPhotoPreviewView alloc] initWithFrame:CGRectZero];
     _previewView.model = self.model;
-    __weak typeof(self) weakSelf = self;
+//    //__weak typeof(self) weakSelf = self;
     [_previewView setSingleTapGestureBlock:^{
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        [strongSelf signleTapAction];
+//        //__strong typeof(weakSelf) self = weakSelf;
+        [self signleTapAction];
     }];
     [self.view addSubview:_previewView];
 }
