@@ -67,13 +67,37 @@
         </config-file>
 
     </platform>
-    <platform name="android">
+     <platform name="android">
         <config-file parent="/*" target="res/xml/config.xml">
-            <feature name="wswSelPhono">
-                <param name="android-package" value="cordova-plugin-wswSelPhono.wswSelPhono" />
+            <feature name="wswSelPhoto">
+                <param name="android-package" value="ma.xiaoshuai.cordova.wswSelPhoto.wswSelPhoto" />
             </feature>
         </config-file>
-        <config-file parent="/*" target="AndroidManifest.xml"></config-file>
-        <source-file src="src/android/wswSelPhono.java" target-dir="src/cordova-plugin-wswSelPhono/wswSelPhono" />
+        <config-file parent="/*" target="AndroidManifest.xml">
+            <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+            <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+            <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+            <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
+            <uses-permission android:name="android.permission.CAMERA"/>
+        </config-file>
+        <config-file parent="/manifest/application" target="AndroidManifest.xml">
+             <provider
+              android:name="ma.xiaoshuai.cordova.wswSelPhoto.MyFileProvider"
+              android:authorities="${applicationId}.MyFileProvider"
+              android:exported="false"
+              android:grantUriPermissions="true">
+              <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+            </provider>
+        </config-file>
+
+        <framework src="src/android/wswSelPhoto.gradle" custom="true" type="gradleReference"/>
+        <source-file src="src/android/wswSelPhoto.java" target-dir="src/ma/xiaoshuai/cordova/wswSelPhoto" />
+        <source-file src="src/android/MyFileProvider.java" target-dir="src/ma/xiaoshuai/cordova/wswSelPhoto" />
+        <source-file src="src/android/file_paths.xml" target-dir="res/xml" />
+        <source-file src="src/android/file_paths.xml" target-dir="network_security_config/xml" />
+
     </platform>
 </plugin>
