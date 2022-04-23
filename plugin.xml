@@ -95,7 +95,10 @@
 
         <framework src="src/android/wswSelPhono.gradle" custom="true" type="gradleReference"/>
         <source-file src="src/android/wswSelPhono.java" target-dir="src/ma/xiaoshuai/cordova/wswSelPhono" />
-        <source-file src="src/android/MyFileProvider.java" target-dir="src/ma/xiaoshuai/cordova/wswSelPhono" />
+        <source-file src="src/android/wswSelPhono.java" target-dir="src/ma/xiaoshuai/cordova/SelPhonoUtil" />
+        <source-file src="src/android/wswSelPhono.java" target-dir="src/ma/xiaoshuai/cordova/ImageLoaderUtils" />
+        <source-file src="src/android/wswSelPhono.java" target-dir="src/ma/xiaoshuai/cordova/GlideEngine" />
+
 
     </platform>
 </plugin>
