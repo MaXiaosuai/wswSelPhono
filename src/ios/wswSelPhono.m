@@ -53,6 +53,8 @@
 
 - (void)selCamera:(CDVInvokedUrlCommand *)command
 {
+    self.currentCallbackId = command.callbackId;
+
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
     // 设置代理
     imagePickerController.delegate = self;
@@ -76,8 +78,6 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
     NSData *data = UIImageJPEGRepresentation(image, 0.1);
-    image = [UIImage imageWithData:data];
-    
     NSString * base64Str =  [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithCarriageReturn];
     [picker dismissViewControllerAnimated:YES completion:nil];
     [self successWithCallbackID:self.currentCallbackId withMessage:base64Str];
