@@ -41,7 +41,7 @@ public class wswSelPhono extends CordovaPlugin {
     if (action.equals("selPhoto")) {
       return selPhoto(args, callbackContext);
     }else if (action.equals("selCamera")) {
-      return selPhoto(args, callbackContext);
+      return selCamera(args, callbackContext);
     }
 
     return false;
@@ -53,14 +53,10 @@ public class wswSelPhono extends CordovaPlugin {
     currentCallbackContext = callbackContext;
     try {
       params = args.getJSONObject(0);
-//            String url = params.getString("url");
-//            String packge = params.getString("packge");
-      String packgeName = "io.ionic.starter";
-      String url = "https://manquan-prod.oss-cn-beijing.aliyuncs.com/apk/app-release.apk";
-      Log.i(TAG, "aliLogin request has been sent successfully.");
+      String max = params.getString("max");
 
       if (XXPermissions.isGranted(cordova.getContext(),Permission.CAMERA)){
-        SelPhonoUtil.selectPic(cordova.getActivity(),currentCallbackContext);
+        SelPhonoUtil.selectPic(cordova.getActivity(),currentCallbackContext,max);
       }else {
         XXPermissions.with(cordova.getContext())
           // 不适配 Android 11 可以这样写
@@ -71,18 +67,16 @@ public class wswSelPhono extends CordovaPlugin {
             @Override
             public void onGranted(List<String> permissions, boolean all) {
               if (all) {
-                SelPhonoUtil.selectPic(cordova.getActivity(),  currentCallbackContext);
+                SelPhonoUtil.selectPic(cordova.getActivity(),  currentCallbackContext,max);
               }
             }
 
             @Override
             public void onDenied(List<String> permissions, boolean never) {
               if (never) {
-//                ToastUtils.show("被永久拒绝授权，请手动授予存储权限");
-                // 如果是被永久拒绝就跳转到应用权限系统设置页面
-//                XXPermissions.startPermissionActivity(SplashActivity.this, permissions);
+                currentCallbackContext.error("被永久拒绝授权，请手动授予存储权限");
               } else {
-//                ToastUtils.show("获取存储权限失败");
+                currentCallbackContext.error("获取存储权限失败");
               }
             }
           });
@@ -94,5 +88,41 @@ public class wswSelPhono extends CordovaPlugin {
       callbackContext.error(ERROR_INVALID_PARAMETERS);
       return false;
     }
+  }
+
+
+  @SuppressLint({"selCamera", "LongLogTag"})
+  protected boolean selCamera(CordovaArgs args, CallbackContext callbackContext) {
+    JSONObject params = null;
+    currentCallbackContext = callbackContext;
+
+      if (XXPermissions.isGranted(cordova.getContext(),Permission.CAMERA)){
+        SelPhonoUtil.selCamera(cordova.getActivity(),currentCallbackContext);
+      }else {
+        XXPermissions.with(cordova.getContext())
+          // 不适配 Android 11 可以这样写
+          //.permission(Permission.Group.STORAGE)
+          // 适配 Android 11 需要这样写，这里无需再写 Permission.Group.STORAGE
+          .permission(Permission.CAMERA)
+          .request(new OnPermissionCallback() {
+            @Override
+            public void onGranted(List<String> permissions, boolean all) {
+              if (all) {
+                SelPhonoUtil.selCamera(cordova.getActivity(),  currentCallbackContext);
+              }
+            }
+
+            @Override
+            public void onDenied(List<String> permissions, boolean never) {
+              if (never) {
+                currentCallbackContext.error("被永久拒绝授权，请手动授予存储权限");
+              } else {
+                currentCallbackContext.error("获取存储权限失败");
+              }
+            }
+          });
+      }
+      return true;
+
   }
 }
